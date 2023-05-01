@@ -1,0 +1,97 @@
+if (test.get(column).get(row) == one)
+				return false;
+			else
+			{
+				//////////////////////////////////////////////////////////////Add column and row to hashmap with value 2//////////////////////////////////////////////////////////////////////
+				for (int i = 1; i <= 2; i++)
+				{
+					int rowDiff = (i % 2) + 1;
+
+					if (test.get(column + i).get(row + rowDiff) == two)
+					{
+						return false;
+					}
+					else
+					{
+						test.putIfAbsent(column + i, new HashMap<Integer, Byte>());
+						test.get(column + i).put(row + rowDiff, one);
+					}
+					if (test.get(column - i).get(row + rowDiff) == two)
+					{
+						return false;
+					}
+					else
+					{
+						test.putIfAbsent(column - i, new HashMap<Integer, Byte>());
+						test.get(column - i).put(row + rowDiff, one);
+					}
+					if (test.get(column + i).get(row - rowDiff) == two)
+					{
+						return false;
+					}
+					else
+					{
+						//test.putIfAbsent(column + i, new HashMap<Integer, Byte>);
+						test.get(column + i).put(row - rowDiff, one);
+					}
+					if (test.get(column - i).get(row - rowDiff) == two)
+					{
+						return false;
+					}
+					else
+					{
+						//test.putIfAbsent(column + i, new HashMap<Integer, Byte>);
+						test.get(column - i).put(row - rowDiff, one);
+					}
+				}
+			}
+
+//////////////////////////////////////////////////////////////////////////////second copy with hashset//////////////////////////////////////////////////////////////////////////////
+
+
+			else
+			{
+				test.get(column).add(row);
+				for (int i = 1; i <= 2; i++)
+				{
+					int rowDiff = (i % 2) + 1;
+					test.putIfAbsent(column + i, new HashSet<Integer>());
+					test.putIfAbsent(column - i, new HashSet<Integer>());
+					if (test.get(column + i).contains(row + rowDiff))
+					{
+						System.out.println(column + i + " " + (row + rowDiff));
+						//System.out.println(i + " " + rowDiff + " " + column + " " + row);
+						return false;
+					}
+					else
+					{
+						test.get(column + i).add(row + rowDiff);
+					}
+					if (test.get(column - i).contains(row + rowDiff))
+					{
+						return false;
+					}
+					else
+					{
+						test.get(column - i).add(row + rowDiff);
+					}
+					if (test.get(column + i).contains(row - rowDiff))
+					{
+						return false;
+					}
+					else
+					{
+						//test.putIfAbsent(column + i, new HashMap<Integer, Byte>);
+						test.get(column + i).add(row - rowDiff);
+					}
+					if (test.get(column - i).contains(row - rowDiff))
+					{
+						return false;
+					}
+					else
+					{
+						//test.putIfAbsent(column + i, new HashMap<Integer, Byte>);
+						test.get(column - i).add(row - rowDiff);
+					}
+				}
+			}
